@@ -1,0 +1,8 @@
+files:
+Employee: employee_id , name , phone, birthday
+Attendance log: employee_id , date, time
+
+Functionality:
+Add employee manually to the file - with error checks
+Add employee from file-
+    enter a file path
