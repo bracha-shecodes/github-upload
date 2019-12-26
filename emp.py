@@ -14,9 +14,3 @@ class Employee(object):
         return [str(self.id), self.name, str(self.phone), self.birthdate]
 
 
-    @classmethod  # anotation ?
-    def create_new(cls, emp_id, emp_name, emp_phone, emp_bdate):  # validity  checks  like name like sting and phone
-
-        newEmp = Employee(emp_id, emp_name, emp_phone, emp_bdate)
-
-        return newEmp

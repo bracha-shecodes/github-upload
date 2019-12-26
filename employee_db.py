@@ -13,15 +13,17 @@ class EmployeeDb(object):
 
 
     def add_one(self, emp_id, emp_name, emp_phone, emp_bdate):
-        emp = Employee.create_new(emp_id, emp_name, emp_phone, emp_bdate)
+        emp = Employee(emp_id, emp_name, emp_phone, emp_bdate)
         self.emp_dict[emp.id] = emp              # add to dict where key = emp_id
         # emp1 = Employee.create_emp_row(emp)
-        self.save_data(emp.format_emp_row())         # save to file with create_emp_row that create a list with the values to insert
+        self.append_new_row(emp.format_emp_row())         # save to file with create_emp_row that create a list with the values to insert
 
 
     def remove_one(self, emp_id):
         success = self.emp_dict.pop(emp_id)
-        print(1)
+        with open("data/employee.dat","rw") as f:
+            success = True
+            # ??
         return success
 
 
@@ -45,7 +47,7 @@ class EmployeeDb(object):
                     break
                 self.emp_dict[id] = Employee(id, name, phone, bdate)
                 emp_obj = Employee(id, name, phone, bdate)
-                self.save_data(emp_obj.format_emp_row())  # save to file with create_emp_row that create a list with the values to insert
+                self.append_new_row(emp_obj.format_emp_row())  # save to file with create_emp_row that create a list with the values to insert
 
 
     def del_bulk(self):
@@ -58,19 +60,18 @@ class EmployeeDb(object):
                 self.emp_dict[id] = Employee(id, name, phone, bdate)              # insert into dictionary where id is the key and other values is a list
         # print(f'my self.emp_rec dict {self.emp_dict}')
 
-# adds the line to the end of the file
-    def save_data(self,formated_emp):
+# adds the line to the end of the file  -- append_new_row
+    def append_new_row(self, formated_emp):
         with open('data/employee.dat', 'a', newline="") as f:
             writer = csv.writer(f)
             writer.writerow(formated_emp)
 
-    def rewrite_data(self, formated_emp):
-        with open('data/employee.dat', 'w') as f:
-            writer = csv.writer(f)
-            write = csv.DictWriter(f, formated_emp)
-
-
-
+    def rewrite_data(self, formated_emp):   ## ?????
+        csvfile = "yourfile.txt"
+        # csvfile = 'data/employee.dat'
+        with open(csvfile, "w") as f:
+            writer = csv.DictWriter(f)
+            writer.writerows(self.emp_dict)
 
     def check_validity(self, phone = None, bdate = None):
         if phone:
