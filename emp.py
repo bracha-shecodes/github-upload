@@ -5,7 +5,9 @@ class Employee(object):
         self.name = name
         self.phone = phone
         self.birthdate = birth_date
-        print("Employee-->", self.id, self.name, self.phone, self.birthdate)
+        self.list = [str(self.id), self.name, str(self.phone), self.birthdate]
+        # print("Employee-->", self.id, self.name, self.phone, self.birthdate)
+        print(self.list)
 
     def __repr__(self):
         return str(self.id) + ',' + self.name + ',' + str(self.phone) + ',' + self.birthdate
