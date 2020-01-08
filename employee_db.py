@@ -27,7 +27,7 @@ class EmployeeDb(object):
 
 
     def add_bulk(self, in_file):  # will get the input csv name frorm the user and peform a loop that will send every line to Employee.create_new
-        with open(in_file,"r") as f:
+        with open(in_file, "r") as f:
             for line in f:
                 id, name, phone, bdate = line.strip().split(',')     #split each line by "," to columns
 
@@ -47,8 +47,15 @@ class EmployeeDb(object):
                 emp_obj = self.emp_dict[id] = Employee(id, name, phone, bdate)
                 self.append_new_row(emp_obj.format_emp_row())  # save to file with create_emp_row that create a list with the values to insert
 
+    def remove_bulk(self, in_file):
+        with open(in_file, 'r') as f:
+            for emp_id in f:
+                success = self.emp_dict.pop(emp_id.strip())
+        print(self.emp_dict)
+        self.rewrite_data()
+        success = True
+        return success
 
-    def del_bulk(self):
         pass
 
     def load_data(self):
@@ -59,11 +66,11 @@ class EmployeeDb(object):
         # print(f'my self.emp_rec dict {self.emp_dict}')
 
 # adds the line to the end of the file  -- append_new_row
-    def append_new_row(self, formated_emp):
+    def append_new_row(self, formatted_emp):
         csvfile = 'data/employee.dat'
         with open(csvfile, 'a', newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(formated_emp)
+            writer.writerow(formatted_emp)
 
     def rewrite_data(self):
         csvfile = 'data/employee.dat'

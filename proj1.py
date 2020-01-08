@@ -24,9 +24,9 @@ def main_menu():
 
         choice = int(input("""
                           1: Add employee manually
-                          2: Add employees from file
-                          3: Delete employee manually
-                          4: delete employees from file
+                          2: Add employees using file
+                          3: remove  employee manually
+                          4: remove employees using  file
                           5: mark attendance
                           6: generate attendance report of an employee
                           7: print report for current month for all employees
@@ -42,7 +42,7 @@ def main_menu():
         elif choice == 3:
             delete_single_emp()
         elif choice == 4:
-            delete_from_file()
+            delete_using_file()
         elif choice == 0:
             exit(0)
         else:
@@ -77,10 +77,9 @@ def acept_single_emp():
     success = False
     while not emp_bdate and not success:
         emp_bdate = input('enter employees birth date (yyyy-mm-dd):')
-        success = emp_db.check_validity(bdate = emp_bdate)
+        success = emp_db.check_validity(bdate=emp_bdate)
 
     emp_db.add_one(emp_id, emp_name, emp_phone, emp_bdate)
-
 
 
 def add_from_file():
@@ -91,10 +90,17 @@ def add_from_file():
             break
         if not in_file:
             in_file = 'data' + os.path.sep + 'new_emp_list.csv'
-
-
-
         emp_db.add_bulk(in_file)
+
+def delete_using_file():
+    in_file = None
+    while not in_file:
+        in_file = input("Enter File name with list of employees to remove  or q to return to main menu: ")
+        if in_file.lower() == 'q':
+            break
+        if not in_file:
+            in_file = 'data' + os.path.sep + 'del_emp_list.csv'
+        emp_db.remove_bulk(in_file)
 
 
 def delete_single_emp():
