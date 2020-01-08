@@ -106,7 +106,7 @@ def delete_single_emp():
             break
 
         if emp_id not in emp_db.emp_dict:
-            print('Id:', emp_id,' not found')
+            print('Id:', emp_id, ' not found')
             emp_id = None
 
         if emp_id in emp_db.emp_dict:  # verify that employee doesn't exists in the file

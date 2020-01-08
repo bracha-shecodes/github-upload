@@ -33,7 +33,7 @@ def save_data(in_emp_obj):
 
 load1 = load_data()
 # print(emp_dict.values())
-filename = 'yourfile.txt'
+filename = 'yourfile1.txt'
 with open(filename, 'w',newline='') as f:
     writer = csv.writer(f)
     writer.writerows(emp_dict.values())

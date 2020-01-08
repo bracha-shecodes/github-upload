@@ -20,10 +20,9 @@ class EmployeeDb(object):
 
 
     def remove_one(self, emp_id):
-        success = self.emp_dict.pop(emp_id)
-        with open("data/employee.dat","rw") as f:
-            success = True
-            # ??
+        success = self.emp_dict.pop(emp_id)   # delete the entry from emp_dict
+        self.rewrite_data()
+        success = True
         return success
 
 
@@ -45,8 +44,7 @@ class EmployeeDb(object):
                 if not success:
                     print('invalid bdate', id, bdate)
                     break
-                self.emp_dict[id] = Employee(id, name, phone, bdate)
-                emp_obj = Employee(id, name, phone, bdate)
+                emp_obj = self.emp_dict[id] = Employee(id, name, phone, bdate)
                 self.append_new_row(emp_obj.format_emp_row())  # save to file with create_emp_row that create a list with the values to insert
 
 
@@ -62,18 +60,22 @@ class EmployeeDb(object):
 
 # adds the line to the end of the file  -- append_new_row
     def append_new_row(self, formated_emp):
-        with open('data/employee.dat', 'a', newline="") as f:
+        csvfile = 'data/employee.dat'
+        with open(csvfile, 'a', newline="") as f:
             writer = csv.writer(f)
             writer.writerow(formated_emp)
 
-    def rewrite_data(self, formated_emp):   ## ?????
-        csvfile = "yourfile.txt"
-        # csvfile = 'data/employee.dat'
-        with open(csvfile, "w") as f:
-            writer = csv.DictWriter(f)
-            writer.writerows(self.emp_dict)
+    def rewrite_data(self):
+        csvfile = 'data/employee.dat'
+        with open(csvfile, 'w', newline='') as f:
+            writer = csv.writer(f)
+            for entry in self.emp_dict.values():
+                writer.writerow(entry.format_emp_row())
 
-    def check_validity(self, phone = None, bdate = None):
+
+
+
+    def check_validity(self, phone=None, bdate=None):
         if phone:
             try:
                 check_phone = phonenumbers.parse((phone), "IL")  # check if phone number legal
