@@ -7,7 +7,7 @@ class Employee(object):
         self.birthdate = birth_date
         self.list = [str(self.id), self.name, str(self.phone), self.birthdate]
         # print("Employee-->", self.id, self.name, self.phone, self.birthdate)
-        print(self.list)
+#        print(self.list)
 
     def __repr__(self):
         return str(self.id) + ',' + self.name + ',' + str(self.phone) + ',' + self.birthdate

@@ -13,6 +13,10 @@ def load_data():
         for line in f:
             id, name, phone, bdate = line.strip().split(',')  # split each line by "," to columns
             emp_dict[id] = Employee(id, name, phone, bdate).format_emp_row()  # insert into dictionary where id is the key and other values is a list
+            emp_dict[id] = Employee(id, name, phone, bdate)
+            # print(emp_dict[id].__dict__)
+            print(emp_dict)
+            a = 1
     # print(f'my self.emp_rec dict {self.emp_dict}')
 
 

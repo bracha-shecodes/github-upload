@@ -103,3 +103,14 @@ class EmployeeDb(object):
 
 
 
+
+
+
+
+    def add_attendance(self, id):
+        csvfile = 'data/att.dat'
+        with open(csvfile, 'a', newline="") as f:
+            writer = csv.writer(f)
+            # line = f"{str(id)},{datetime.datetime.now()}"
+            line = [str(id), str(datetime.datetime.now())]
+            writer.writerow(line)

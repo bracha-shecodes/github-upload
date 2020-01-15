@@ -2,6 +2,7 @@
 # import sys
 import os
 from employee_db import EmployeeDb
+import datetime
 
 
 
@@ -24,10 +25,10 @@ def main_menu():
 
         choice = int(input("""
                           1: Add employee manually
-                          2: Add employees using file
+                          2: Add employees from file
                           3: remove  employee manually
-                          4: remove employees using  file
-                          5: mark attendance
+                          4: delete employees using  file
+                          5: Mark attendance
                           6: generate attendance report of an employee
                           7: print report for current month for all employees
                           8: print attendance report for all employees who where late (came after 9:30am')
@@ -43,6 +44,8 @@ def main_menu():
             delete_single_emp()
         elif choice == 4:
             delete_using_file()
+        elif choice == 5:
+            mark_attendance()
         elif choice == 0:
             exit(0)
         else:
@@ -71,7 +74,7 @@ def acept_single_emp():
     success = False
     while not emp_phone and not success:
         emp_phone = input('enter phone (digits only):')
-        success = emp_db.check_validity(phone = emp_phone)
+        success = emp_db.check_validity(phone=emp_phone)
 
     emp_bdate = None
     success = False
@@ -91,6 +94,7 @@ def add_from_file():
         if not in_file:
             in_file = 'data' + os.path.sep + 'new_emp_list.csv'
         emp_db.add_bulk(in_file)
+
 
 def delete_using_file():
     in_file = None
@@ -124,15 +128,24 @@ def delete_single_emp():
     exit(12)
 
 
-def delete_from_file():
+def mark_attendance():
+    emp_id = None
+    while not emp_id:
+        emp_id = input("Enter employee to mark attendance  or q to return to main menu: ")
+        if emp_id.lower() == 'q':
+            break
+
+        if emp_id not in emp_db.emp_dict:
+            print('Id:', emp_id, ' not found')
+            emp_id = None
+        if emp_id in emp_db.emp_dict:
+            emp_db.add_attendance(emp_id)
+            emp_id = None
     exit(13)
 
 
 if __name__ == "__main__":
     main()
 
-# def find_id_by_name(name,db):
-#     list_values = [key for key, val in db.emp_dict.items() if val == name]
-#     return db.emp_dict
 
-print(EmployeeDb.emp_dict.items())
+# print(EmployeeDb.emp_dict.items())
