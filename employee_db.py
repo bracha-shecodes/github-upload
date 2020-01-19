@@ -48,6 +48,7 @@ class EmployeeDb(object):
                 self.append_new_row(emp_obj.format_emp_row())  # save to file with create_emp_row that create a list with the values to insert
 
     def remove_bulk(self, in_file):
+        csvfile_emp = 'data/employee.dat'
         with open(in_file, 'r') as f:
             for emp_id in f:
                 success = self.emp_dict.pop(emp_id.strip())
@@ -56,10 +57,9 @@ class EmployeeDb(object):
         success = True
         return success
 
-        pass
-
     def load_data(self):
-        with open("data/employee.dat","r+") as f:
+        csvfile_emp = 'data/employee.dat'
+        with open(csvfile_emp,"r+") as f:
             for line in f:
                 id, name, phone, bdate = line.strip().split(',')     #split each line by "," to columns
                 self.emp_dict[id] = Employee(id, name, phone, bdate)              # insert into dictionary where id is the key and other values is a list
@@ -67,20 +67,16 @@ class EmployeeDb(object):
 
 # adds the line to the end of the file  -- append_new_row
     def append_new_row(self, formatted_emp):
-        csvfile = 'data/employee.dat'
-        with open(csvfile, 'a', newline="") as f:
+        csvfile_emp = 'data/employee.dat'
+        with open(csvfile_emp, 'a', newline="") as f:
             writer = csv.writer(f)
             writer.writerow(formatted_emp)
 
     def rewrite_data(self):
-        csvfile = 'data/employee.dat'
-        with open(csvfile, 'w', newline='') as f:
+        with open(csvfile_emp, 'w', newline='') as f:
             writer = csv.writer(f)
             for entry in self.emp_dict.values():
                 writer.writerow(entry.format_emp_row())
-
-
-
 
     def check_validity(self, phone=None, bdate=None):
         if phone:
@@ -101,16 +97,21 @@ class EmployeeDb(object):
                 print("Incorrect data format, should be YYYY-MM-DD, Please insert a valid date")
                 return False
 
-
-
-
-
-
-
-    def add_attendance(self, id):
-        csvfile = 'data/att.dat'
-        with open(csvfile, 'a', newline="") as f:
+    def add_attendance(self, p_id):
+        csvfile_att = 'data/att.dat'
+        time_format = "%Y-%m-%d,%H:%M"
+        current_time = datetime.datetime.now()
+        with open(csvfile_att, 'a', newline="") as f:
             writer = csv.writer(f)
-            # line = f"{str(id)},{datetime.datetime.now()}"
-            line = [str(id), str(datetime.datetime.now())]
+            line = [str(p_id), current_time.strftime(time_format)]
             writer.writerow(line)
+
+    def do_emp_report(self, p_id):
+        csvfile_att = 'data/att.dat'
+        with open(csvfile_att, "r") as f:
+            for line in f:
+                if p_id in line:
+                    p_id, name, phone, bdate = line.strip().split(',')  # split each line by "," to columns
+                self.emp_dict[id] = Employee(id, name, phone,
+                                             bdate)
+        # print(f'my self.emp_rec dict {self.emp_dict}')

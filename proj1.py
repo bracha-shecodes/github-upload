@@ -3,10 +3,7 @@
 import os
 from employee_db import EmployeeDb
 
-
-
-
-emp_db = EmployeeDb()
+db_emp = EmployeeDb()
 
 
 def main():
@@ -37,7 +34,7 @@ def main_menu():
                           Please enter your choice: """))
 
         if choice == 1:
-            acept_single_emp()
+            accept_single_emp()
         elif choice == 2:
             add_from_file()
         elif choice == 3:
@@ -46,6 +43,8 @@ def main_menu():
             delete_using_file()
         elif choice == 5:
             mark_attendance()
+        elif choice == 6:
+            gen_emp_report()
         elif choice == 0:
             exit(0)
         else:
@@ -56,15 +55,15 @@ def main_menu():
         pass  # print list of choises main
 
 
-def acept_single_emp():
+def accept_single_emp():
     emp_id = None
     while not emp_id:
         emp_id = input("Enter New employee id or q to return to main menu: ")  # get employee number from the user
 
         if emp_id.lower() == 'q':
-             break
+            break
 
-        if emp_id in emp_db.emp_dict:  # verify that employee doesn't exists in the file
+        if emp_id in db_emp.emp_dict:  # verify that employee doesn't exists in the file
             print('Employee already exists, try again')
             emp_id = None
 
@@ -74,15 +73,15 @@ def acept_single_emp():
     success = False
     while not emp_phone and not success:
         emp_phone = input('enter phone (digits only):')
-        success = emp_db.check_validity(phone=emp_phone)
+        success = db_emp.check_validity(phone=emp_phone)
 
     emp_bdate = None
     success = False
     while not emp_bdate and not success:
         emp_bdate = input('enter employees birth date (yyyy-mm-dd):')
-        success = emp_db.check_validity(bdate=emp_bdate)
+        success = db_emp.check_validity(bdate=emp_bdate)
 
-    emp_db.add_one(emp_id, emp_name, emp_phone, emp_bdate)
+    db_emp.add_one(emp_id, emp_name, emp_phone, emp_bdate)
 
 
 def add_from_file():
@@ -93,7 +92,7 @@ def add_from_file():
             break
         if not in_file:
             in_file = 'data' + os.path.sep + 'new_emp_list.csv'
-        emp_db.add_bulk(in_file)
+        db_emp.add_bulk(in_file)
 
 
 def delete_using_file():
@@ -104,7 +103,7 @@ def delete_using_file():
             break
         if not in_file:
             in_file = 'data' + os.path.sep + 'del_emp_list.csv'
-        emp_db.remove_bulk(in_file)
+        db_emp.remove_bulk(in_file)
 
 
 def delete_single_emp():
@@ -115,13 +114,13 @@ def delete_single_emp():
         if emp_id.lower() == 'q':
             break
 
-        if emp_id not in emp_db.emp_dict:
+        if emp_id not in db_emp.emp_dict:
             print('Id:', emp_id, ' not found')
             emp_id = None
 
-        if emp_id in emp_db.emp_dict:  # verify that employee doesn't exists in the file
-            print('About to delete employee:', emp_db.emp_dict[emp_id])
-            success = emp_db.remove_one(emp_id)
+        if emp_id in db_emp.emp_dict:  # verify that employee doesn't exists in the file
+            print('About to delete employee:', db_emp.emp_dict[emp_id])
+            success = db_emp.remove_one(emp_id)
             if success:
                 print(success, 'deleted !')
             emp_id = None
@@ -134,15 +133,26 @@ def mark_attendance():
         emp_id = input("Enter employee to mark attendance  or q to return to main menu: ")
         if emp_id.lower() == 'q':
             break
-
-        if emp_id not in emp_db.emp_dict:
+        if emp_id not in db_emp.emp_dict:
             print('Id:', emp_id, ' not found')
             emp_id = None
-        if emp_id in emp_db.emp_dict:
-            emp_db.add_attendance(emp_id)
+        if emp_id in db_emp.emp_dict:
+            db_emp.add_attendance(emp_id)
             emp_id = None
     exit(13)
 
+
+def gen_emp_report():
+    emp_id = None
+    while not emp_id:
+        emp_id = input("Enter employee ID or q to return to main menu: ")
+        if emp_id.lower() == 'q':
+            break
+        if emp_id not in db_emp.emp_dict:
+            print('Id:', emp_id, ' not found')
+            emp_id = None
+        else:
+            db_emp.do_emp_report(emp_id)
 
 if __name__ == "__main__":
     main()
