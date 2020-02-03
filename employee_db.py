@@ -99,7 +99,7 @@ class EmployeeDb(object):
 
     def add_attendance(self, p_id):
         csvfile_att = 'data/att.dat'
-        time_format = "%Y-%m-%d,%H:%M"
+        time_format = '%Y-%m-%d,%H:%M'
         current_time = datetime.datetime.now()
         with open(csvfile_att, 'a', newline="") as f:
             writer = csv.writer(f)
@@ -108,10 +108,14 @@ class EmployeeDb(object):
 
     def do_emp_report(self, p_id):
         csvfile_att = 'data/att.dat'
+        print('attendance report of employee ', p_id, ': ')
         with open(csvfile_att, "r") as f:
+            cnt = 0
             for line in f:
                 if p_id in line:
-                    p_id, name, phone, bdate = line.strip().split(',')  # split each line by "," to columns
-                self.emp_dict[id] = Employee(id, name, phone,
-                                             bdate)
-        # print(f'my self.emp_rec dict {self.emp_dict}')
+                    cnt += 1
+                    p_id, a_date, a_time = line.strip().split(',')  # split each line by "," to columns
+                    # self.emp_dict[id] = Employee(id, name, phone, bdate)
+                    #print(f'my self.emp_rec dict {self.emp_dict}')
+                    st1 = 0
+                    print(cnt, ':', a_date.strip('"'), a_time.strip('"'))
