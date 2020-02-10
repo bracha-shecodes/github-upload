@@ -45,6 +45,8 @@ def main_menu():
             mark_attendance()
         elif choice == 6:
             gen_emp_report()
+        elif choice == 7:
+            current_month_rep()
         elif choice == 0:
             exit(0)
         else:
@@ -153,6 +155,17 @@ def gen_emp_report():
             emp_id = None
         else:
             db_emp.do_emp_report(emp_id)
+
+
+def current_month_rep():
+    in_month = None
+    while not in_month:
+        in_month = input("Enter month for all employee report or q to return to main menu: ")
+        if in_month.lower() == 'q':
+            break
+        else:
+            db_emp.do_current_month_rep(in_month)
+
 
 if __name__ == "__main__":
     main()

@@ -119,3 +119,7 @@ class EmployeeDb(object):
                     #print(f'my self.emp_rec dict {self.emp_dict}')
                     st1 = 0
                     print(cnt, ':', a_date.strip('"'), a_time.strip('"'))
+
+
+    def do_current_month_rep(self, p_month):
+        if p_month
