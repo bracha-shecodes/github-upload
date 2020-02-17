@@ -121,5 +121,7 @@ class EmployeeDb(object):
                     print(cnt, ':', a_date.strip('"'), a_time.strip('"'))
 
 
-    def do_current_month_rep(self, p_month):
-        if p_month
+    def do_current_month_rep(self):
+        start_mm = datetime.datetime(today.year, today.month, 1)
+        currentMonth = datetime.now().month
+        currentYear = datetime.now().year
