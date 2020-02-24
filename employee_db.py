@@ -136,3 +136,14 @@ class EmployeeDb(object):
                     print(p_id, ' ', a_date)
             print('total: ', cnt)
 
+    def do_late_rep(self):
+        today = str(datetime.datetime.today())
+        curr_mmyyyy = (today[:7])
+        csvfile_att = 'data/att.dat'
+        print('attendance report of current month late employees ', curr_mmyyyy, ': ')
+        with open(csvfile_att, "r") as f:
+            cnt = 0
+            for line in f:
+                line = line.replace('"', '')
+                p_id, a_date, a_time = line.strip().split(',')
+                # if a_date[0:7] == curr_mmyyyy

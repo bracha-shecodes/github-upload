@@ -47,6 +47,8 @@ def main_menu():
             gen_emp_report()
         elif choice == 7:
             current_month_rep()
+        elif choice == 8:
+            late_rep()
         elif choice == 0:
             exit(0)
         else:
@@ -165,7 +167,19 @@ def current_month_rep():
             break
         else:
             db_emp.do_current_month_rep()
+    exit(14)
+
+
+def late_rep():
+    in_month = None
+    while not in_month:
+        in_month = input("Hit enter for late attendance report  or q to quit")
+        if in_month.lower() == 'q':
             break
+        else:
+            db_emp.do_late_rep()
+    exit(15)
+
 
 
 if __name__ == "__main__":
