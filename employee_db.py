@@ -122,6 +122,17 @@ class EmployeeDb(object):
 
 
     def do_current_month_rep(self):
-        start_mm = datetime.datetime(today.year, today.month, 1)
-        currentMonth = datetime.now().month
-        currentYear = datetime.now().year
+        today = str(datetime.datetime.today())
+        curr_mmyyyy = (today[:7])
+        csvfile_att = 'data/att.dat'
+        print('attendance report of current month  ', curr_mmyyyy, ': ')
+        with open(csvfile_att, "r") as f:
+            cnt = 0
+            for line in f:
+                line = line.replace('"', '')
+                p_id, a_date, a_time = line.strip().split(',')
+                if a_date[0:7] == curr_mmyyyy:
+                    cnt += 1
+                    print(p_id, ' ', a_date)
+            print('total: ', cnt)
+

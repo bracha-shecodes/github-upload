@@ -160,11 +160,12 @@ def gen_emp_report():
 def current_month_rep():
     in_month = None
     while not in_month:
-        in_month = input("Enter to create current month attendance report  or q to quit" )
+        in_month = input("Hit enter to create current month attendance report  or q to quit")
         if in_month.lower() == 'q':
             break
-    else:
-        db_emp.do_current_month_rep()
+        else:
+            db_emp.do_current_month_rep()
+            break
 
 
 if __name__ == "__main__":
