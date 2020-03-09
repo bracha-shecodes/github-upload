@@ -2,8 +2,10 @@
 # import sys
 import os
 from employee_db import EmployeeDb
+from attendance_db import AttendanceDb
 
 db_emp = EmployeeDb()
+db_att = AttendanceDb()
 
 
 def main():
@@ -141,7 +143,8 @@ def mark_attendance():
             print('Id:', emp_id, ' not found')
             emp_id = None
         if emp_id in db_emp.emp_dict:
-            db_emp.add_attendance(emp_id)
+            # db_emp.add_attendance(emp_id)
+            db_att.add_attendance(emp_id)
             emp_id = None
     exit(13)
 
