@@ -3,6 +3,7 @@ from emp import Employee
 import phonenumbers
 from phonenumbers import NumberParseException
 import datetime
+from datetime import datetime
 # test
 
 
@@ -150,5 +151,5 @@ class EmployeeDb(object):
                 if punch_time.time() > late_time.time():
                     cnt += 1
                     print(p_id, ',', a_date, ',', punch_time)
-                print('total: ', cnt)
+            print('total: ', cnt)
 
