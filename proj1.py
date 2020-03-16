@@ -159,7 +159,7 @@ def gen_emp_report():
             print('Id:', emp_id, ' not found')
             emp_id = None
         else:
-            db_emp.do_emp_report(emp_id)
+            db_att.do_emp_report(emp_id)
 
 
 def current_month_rep():
