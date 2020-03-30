@@ -92,7 +92,7 @@ class EmployeeDb(object):
         if bdate:
             date_format = '%Y-%m-%d'
             try:
-                date_obj = datetime.datetime.strptime(bdate, date_format)
+                date_obj = datetime.strptime(bdate, date_format)
                 print("birthday is:", date_obj)
                 return True
             except ValueError:
@@ -114,20 +114,20 @@ class EmployeeDb(object):
                     print(cnt, ':', a_date.strip('"'), a_time.strip('"'))
 
 
-    def do_current_month_rep(self):
-        today = str(datetime.datetime.today())
-        curr_mmyyyy = (today[:7])
-        csvfile_att = 'data/att.dat'
-        print('attendance report of current month  ', curr_mmyyyy, ': ')
-        with open(csvfile_att, "r") as f:
-            cnt = 0
-            for line in f:
-                line = line.replace('"', '')
-                p_id, a_date, a_time = line.strip().split(',')
-                if a_date[0:7] == curr_mmyyyy:
-                    cnt += 1
-                    print(p_id, ' ', a_date)
-            print('total: ', cnt)
+    # def do_current_month_rep(self):
+    #     today = str(datetime.datetime.today())
+    #     curr_mmyyyy = (today[:7])
+    #     csvfile_att = 'data/att.dat'
+    #     print('attendance report of current month  ', curr_mmyyyy, ': ')
+    #     with open(csvfile_att, "r") as f:
+    #         cnt = 0
+    #         for line in f:
+    #             line = line.replace('"', '')
+    #             p_id, a_date, a_time = line.strip().split(',')
+    #             if a_date[0:7] == curr_mmyyyy:
+    #                 cnt += 1
+    #                 print(p_id, ' ', a_date)
+    #         print('total: ', cnt)
 
     def do_late_rep(self):
         csvfile_att = 'data/att.dat'

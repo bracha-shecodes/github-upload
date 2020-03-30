@@ -169,7 +169,7 @@ def current_month_rep():
         if in_month.lower() == 'q':
             break
         else:
-            db_emp.do_current_month_rep()
+            db_att.do_current_month_rep()
     exit(14)
 
 
@@ -180,7 +180,7 @@ def late_rep():
         if in_month.lower() == 'q':
             break
         else:
-            db_emp.do_late_rep()
+            db_att.do_late_rep()
     exit(15)
 
 
