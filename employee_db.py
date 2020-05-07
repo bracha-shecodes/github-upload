@@ -71,9 +71,9 @@ class EmployeeDb(object):
 
 # adds the line to the end of the file  -- append_new_row
     def append_new_row(self, formatted_emp):
-        with open(self.csvfile_emp, 'a', newline="") as f:
+        with open(self.csvfile_emp, 'a', newline='') as f:
             writer = csv.writer(f)
-            # if self.first_row_ind == False:   # I want to add the new record to a new line
+            # if not self.first_row_ind:   # I want to add the new record to a new line
             #     writer.writerow()
             writer.writerow(formatted_emp)
 
