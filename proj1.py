@@ -22,7 +22,7 @@ def main_menu():
         # time.sleep(1)
         print()
 
-        choice = int(input("""
+        choice = input("""
                           1: Add employee manually
                           2: Add employees from file
                           3: remove  employee manually
@@ -33,8 +33,13 @@ def main_menu():
                           8: print attendance report for all employees who where late (came after 9:30am')
                           0: Quit/Log Out
 
-                          Please enter your choice: """))
+                          Please enter your choice: """)
 
+        if not choice.isdigit():
+            print("You must only select  0 - 8 ")
+            main_menu()
+        else:
+            choice = int(choice)
         if choice == 1:
             accept_single_emp()
         elif choice == 2:
@@ -58,6 +63,7 @@ def main_menu():
             print("Please try again")
             main_menu()
 
+
         pass  # print list of choises main
 
 
@@ -67,7 +73,11 @@ def accept_single_emp():
         emp_id = input("Enter New employee id or q to return to main menu: ")  # get employee number from the user
 
         if emp_id.lower() == 'q':
-            break
+            return None
+
+        if not emp_id.isdigit():
+            print('ID must be numbers')
+            emp_id = None
 
         if emp_id in db_emp.emp_dict:  # verify that employee doesn't exists in the file
             print('Employee already exists, try again')

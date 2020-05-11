@@ -14,7 +14,7 @@ class Employee(object):
     def create_new(cls, emp_id, emp_name, emp_phone, emp_bdate):  # validity  checks  like name like sting and phone
 
         if phonenumbers.parse((emp_phone),"IL"):           #check if phone number legal
-            print("emp___________phone:", phonenumbers.parse((emp_phone),"IL"))
+            print("phone:", phonenumbers.parse((emp_phone),"IL"))
             pass
         else:
             print("emp_phone is not legal")
