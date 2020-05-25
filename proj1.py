@@ -106,6 +106,12 @@ def add_from_file():
         in_file = input("Enter File name or q to return to main menu: ")
         if in_file.lower() == 'q':
             break
+        # try:
+        #     file_not_exist = with open(self.csvfile_emp, "r+") as f:
+        #         return True
+        #     except NumberParseException:  # NumberParseException ValueError
+        #         print("The string supplied did not seem to be a phone number")
+        #         return False
         if not in_file:
             in_file = 'data' + os.path.sep + 'new_emp_list.csv'
         db_emp.add_bulk(in_file)

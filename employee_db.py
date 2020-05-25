@@ -62,7 +62,7 @@ class EmployeeDb(object):
 
 
     def load_data(self):
-         with open(self.csvfile_emp, "r+") as f:
+         uhj
             for line in f:
                 id, name, phone, bdate = line.strip().split(',')     #split each line by "," to columns
                 self.emp_dict[id] = Employee(id, name, phone, bdate)              # insert into dictionary where id is the key and other values is a list
@@ -88,7 +88,7 @@ class EmployeeDb(object):
         if phone:
             try:
                 check_phone = phonenumbers.parse((phone), "IL")  # check if phone number legal
-                print("emp___________phone:", check_phone)
+                print("emp phone:", check_phone)
                 return True
             except NumberParseException:  # NumberParseException ValueError
                 print("The string supplied did not seem to be a phone number")
