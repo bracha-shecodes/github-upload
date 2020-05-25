@@ -1,6 +1,8 @@
 # import this   #pythons Zen
 # import sys
 import os
+import os.path
+from os import path
 from employee_db import EmployeeDb
 from attendance_db import AttendanceDb
 
@@ -63,7 +65,6 @@ def main_menu():
             print("Please try again")
             main_menu()
 
-
         pass  # print list of choises main
 
 
@@ -106,12 +107,9 @@ def add_from_file():
         in_file = input("Enter File name or q to return to main menu: ")
         if in_file.lower() == 'q':
             break
-        # try:
-        #     file_not_exist = with open(self.csvfile_emp, "r+") as f:
-        #         return True
-        #     except NumberParseException:  # NumberParseException ValueError
-        #         print("The string supplied did not seem to be a phone number")
-        #         return False
+        if in_file and not path.exists(in_file):
+            print('File not fount', in_file)
+            break
         if not in_file:
             in_file = 'data' + os.path.sep + 'new_emp_list.csv'
         db_emp.add_bulk(in_file)
@@ -122,6 +120,9 @@ def delete_using_file():
     while not in_file:
         in_file = input("Enter File name with list of employees to remove  or q to return to main menu: ")
         if in_file.lower() == 'q':
+            break
+        if in_file and not path.exists(in_file):
+            print('File not fount', in_file)
             break
         if not in_file:
             in_file = 'data' + os.path.sep + 'del_emp_list.csv'
@@ -200,9 +201,7 @@ def late_rep():
     exit(15)
 
 
-
 if __name__ == "__main__":
     main()
-
 
 # print(EmployeeDb.emp_dict.items())

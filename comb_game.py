@@ -8,8 +8,7 @@ def main():
         for letter in f:
             letters = letter.strip().split(',')
             print(letter)
-        perm = permutations(letters, 5)
-#        perm = combinations(letters, 5)
+        perm = permutations(letters, 3)
         with open('res.dat', 'w', encoding='utf-8', newline='') as o1:
             inx = 0
             for i in list(perm):

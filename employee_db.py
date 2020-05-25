@@ -53,16 +53,16 @@ class EmployeeDb(object):
     def remove_bulk(self, in_file):
         with open(in_file, 'r') as f:
             for emp_id in f:
+                # if emp_id in self.emp_dict:
                 success = self.emp_dict.pop(emp_id.strip())
-
-        print(self.emp_dict)
+                print(f'Employee {emp_id} deleted')
         self.rewrite_data()
         success = True
         return success
 
 
     def load_data(self):
-         uhj
+        with open(self.csvfile_emp, "r+") as f:
             for line in f:
                 id, name, phone, bdate = line.strip().split(',')     #split each line by "," to columns
                 self.emp_dict[id] = Employee(id, name, phone, bdate)              # insert into dictionary where id is the key and other values is a list
