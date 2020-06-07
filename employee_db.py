@@ -53,9 +53,9 @@ class EmployeeDb(object):
     def remove_bulk(self, in_file):
         with open(in_file, 'r') as f:
             for emp_id in f:
-                # if emp_id in self.emp_dict:
-                success = self.emp_dict.pop(emp_id.strip())
-                print(f'Employee {emp_id} deleted')
+                if emp_id[0:-1] in self.emp_dict:
+                    success = self.emp_dict.pop(emp_id.strip())
+                    print(f'Employee {emp_id} deleted')
         self.rewrite_data()
         success = True
         return success
