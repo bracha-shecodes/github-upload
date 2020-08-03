@@ -20,11 +20,13 @@ class AttendanceDb(object):
         with open(self.csvfile_att, "r") as f:
             cnt = 0
             for line in f:
-                if str(p_id) in line:
+                f_pid = line.strip().split(',')[0]  # insert the first element to variable
+                if str(p_id) == f_pid:
                     cnt += 1
                     p_id, a_date, a_time = line.strip().split(',')  # split each line by "," to columns
-                    st1 = 0
-                    print(cnt, ':', a_date.strip('"'), a_time.strip('"'))
+                    att_date = a_date.strip('"')
+                    att_time = a_time.strip('"')
+                    print(f"{cnt:3}: {att_date} {att_time}")
 
     def do_current_month_rep(self):
         today = str(datetime.datetime.today())
@@ -37,16 +39,15 @@ class AttendanceDb(object):
                 p_id, a_date, a_time = line.strip().split(',')
                 if a_date[0:7] == curr_mmyyyy:
                     cnt += 1
-                    print(p_id, ' ', a_date)
+                    print(f"{int(p_id):7}: {a_date}")
             print('total: ', cnt)
 
-
     def do_late_rep(self):
-        csvfile_att = 'data/att.dat'
         hour_format = '%H:%M'
         late_time = datetime.datetime.strptime('09:30', hour_format)
+        # late_time = datetime.time(9, 30, 00, 00)
         print('List of employees who were late: ')
-        with open(csvfile_att, "r") as f:
+        with open(self.csvfile_att, "r") as f:
             cnt = 0
             for line in f:
                 line = line.replace('"', '')
@@ -54,5 +55,5 @@ class AttendanceDb(object):
                 punch_time = datetime.datetime.strptime(a_time, hour_format)
                 if punch_time.time() > late_time.time():
                     cnt += 1
-                    print(p_id, ',', a_date, ',', punch_time)
-            print('total: ', cnt)
+                    print(f"{p_id:6} {a_date} {a_time}")
+            print(f"total: {cnt}")
